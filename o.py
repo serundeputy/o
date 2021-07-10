@@ -18,7 +18,7 @@ parser.add_argument(
 parser.add_argument(
     '-c',
     '--codedir',
-    help='where to clone the code into'
+    help='where to clone the code'
 )
 args = parser.parse_args()
 
