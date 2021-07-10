@@ -22,6 +22,7 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+# @TODO abstract open_vim and open_code into their own modules?
 def open_nvim(path):
     repo_exists = os.path.isdir(path)
     print('made it to args.org and args.repo')
@@ -38,6 +39,9 @@ def open_nvim(path):
         os.system(
             f'cd {path}; nvim .'
         )
+
+# @TODO add open_code()
+# i.e open in vscode
 
 if args.org and args.repo:
     path = f'{args.codedir}/{args.org}/{args.repo}'
