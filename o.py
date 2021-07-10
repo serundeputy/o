@@ -22,6 +22,8 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
+# @TODO add readin the .env file and allow overrides via --OPTIONS
+
 # @TODO abstract open_vim and open_code into their own modules?
 def open_nvim(path):
     repo_exists = os.path.isdir(path)
