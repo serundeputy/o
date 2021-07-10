@@ -1,13 +1,23 @@
 import argparse
+from dotenv import load_dotenv
 import os
 import git
 
+load_dotenv()
 parser = argparse.ArgumentParser()
 base_url = 'git@github.com'
 
+
+parser.add_argument(
+    '-e',
+    '--editor',
+    default=os.getenv('editor'),
+    help='the github org'
+)
 parser.add_argument(
     '-o',
     '--org',
+    default=os.getenv('org'),
     help='the github org'
 )
 parser.add_argument(
@@ -18,6 +28,7 @@ parser.add_argument(
 parser.add_argument(
     '-c',
     '--codedir',
+    default=os.getenv('codedir'),
     help='where to clone the code'
 )
 args = parser.parse_args()
