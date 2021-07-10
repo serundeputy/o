@@ -33,20 +33,15 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-# @TODO add readin the .env file and allow overrides via --OPTIONS
-
 # @TODO abstract open_vim and open_code into their own modules?
 def open_nvim(path):
     repo_exists = os.path.isdir(path)
-    print('made it to args.org and args.repo')
-    print(repo_exists)
     if repo_exists:
-        print('exists')
         os.system(
             f'cd {path}; nvim .'
         )
     else:
-        git.Git(f'{args.codedir}/{args.org}').clone(
+        git.Git(f'{args.codedir}').clone(
             f'{base_url}:{args.org}/{args.repo}.git'
         )
         os.system(
@@ -57,5 +52,5 @@ def open_nvim(path):
 # i.e open in vscode
 
 if args.org and args.repo:
-    path = f'{args.codedir}/{args.org}/{args.repo}'
+    path = f'{args.codedir}/{args.repo}'
     open_nvim(path)
