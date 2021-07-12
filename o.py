@@ -33,24 +33,43 @@ parser.add_argument(
 )
 args = parser.parse_args()
 
-# @TODO abstract open_vim and open_code into their own modules?
+def repo_exists(path):
+    return os.path.isdir(path)
+
+def clone():
+   git.Git(f'{args.codedir}').clone(
+       f'{base_url}:{args.org}/{args.repo}.git'
+   )
+
 def open_nvim(path):
-    repo_exists = os.path.isdir(path)
-    if repo_exists:
+    if repo_exists(path):
         os.system(
             f'cd {path}; nvim .'
         )
     else:
-        git.Git(f'{args.codedir}').clone(
-            f'{base_url}:{args.org}/{args.repo}.git'
-        )
+        clone()
         os.system(
             f'cd {path}; nvim .'
         )
 
-# @TODO add open_code()
-# i.e open in vscode
+def open_vscode(path):
+    if repo_exists(path):
+        os.system(f'code {path}')
+    else:
+        clone()
+        os.system(f'code {path}')
+
+
+def open(path):
+    """
+    " Choose wich editor.
+    """
+    if args.editor == 'nvim':
+        open_nvim(path)
+    elif args.editor == 'vscode' or args.editor == 'code':
+        open_vscode(path)
+
 
 if args.org and args.repo:
     path = f'{args.codedir}/{args.repo}'
-    open_nvim(path)
+    open(path)
